@@ -12,6 +12,10 @@ describe('mockElement', function () {
     let mockElement = makeMockElement()
     expect(mockElement).to.have.property('innerHTML')
   })
+  it('is clickable', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement).to.respondTo('click')
+  })
   it('can add event listeners', function () {
     let mockElement = makeMockElement()
     mockElement.addEventListener('myevent', function () {})
