@@ -16,9 +16,12 @@ function makeMockHtmlElement () {
     isEventListener: function (eventName, value) {
       return Boolean(eventListeners[eventName] && eventListeners[eventName].indexOf(value) !== -1)
     },
-    click: function () {},
+    click: function () {
+      this._clickCount += 1
+    },
     innerHTML: '',
-    value: ''
+    value: '',
+    _clickCount: 0
   }
   return instance
 }
