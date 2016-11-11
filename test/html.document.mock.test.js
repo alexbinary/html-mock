@@ -27,17 +27,17 @@ let queryableElements = {
   }
 }
 
-describe('mockDocument', function () {
-  it('takes list of queryable elements', function () {
+describe('html.document.mock', function () {
+  it('take list of queryable elements', function () {
     mockDocument.setAllQueryableElements(queryableElements)
   })
-  it('takes list of active queryable elements', function () {
+  it('take list of active queryable elements', function () {
     mockDocument.setAllQueryableElements(queryableElements)
     mockDocument.setActiveQueryableElements([
       queryableElements.testElement
     ])
   })
-  it('access element by name', function () {
+  it('access element directly by name', function () {
     mockDocument.setAllQueryableElements(queryableElements)
     expect(
       mockDocument.elements.testElement
@@ -45,7 +45,7 @@ describe('mockDocument', function () {
       queryableElements.testElement.elements[0]
     )
   })
-  it('access multiple elements by name with suffix `All`', function () {
+  it('access multiple elements directly by name with suffix `All`', function () {
     mockDocument.setAllQueryableElements(queryableElements)
     expect(
       mockDocument.elements.testElementAll
@@ -53,80 +53,148 @@ describe('mockDocument', function () {
       queryableElements.testElement.elements
     )
   })
-  it('querySelector matches same element on multiple selectors', function () {
+  it('access all elements directly by name whether set as active or not', function () {
     mockDocument.setAllQueryableElements(queryableElements)
     mockDocument.setActiveQueryableElements([
-      queryableElements.otherElement,
       queryableElements.testElement
     ])
     expect(
-      mockDocument.querySelector('test-element')
-    ).to.equal(
+      mockDocument.elements.testElement
+    ).to.deep.equal(
       queryableElements.testElement.elements[0]
     )
     expect(
-      mockDocument.querySelector('test-element-alt')
-    ).to.equal(
-      queryableElements.testElement.elements[0]
-    )
-  })
-  it('querySelectorAll matches same set of elements on multiple selectors', function () {
-    mockDocument.setAllQueryableElements(queryableElements)
-    mockDocument.setActiveQueryableElements([
-      queryableElements.otherElement,
-      queryableElements.testElement
-    ])
-    expect(
-      mockDocument.querySelectorAll('test-element')
+      mockDocument.elements.testElementAll
     ).to.deep.equal(
       queryableElements.testElement.elements
     )
     expect(
-      mockDocument.querySelectorAll('test-element-alt')
+      mockDocument.elements.otherElement
     ).to.deep.equal(
-      queryableElements.testElement.elements
+      queryableElements.otherElement.elements[0]
     )
-  })
-  it('querySelector matches the first element with selector', function () {
-    mockDocument.setAllQueryableElements(queryableElements)
-    mockDocument.setActiveQueryableElements([
-      queryableElements.otherElement,
-      queryableElements.testElement
-    ])
     expect(
-      mockDocument.querySelector('test-element')
-    ).to.equal(
-      queryableElements.testElement.elements[0]
-    )
-  })
-  it('querySelectorAll matches all elements with selector', function () {
-    mockDocument.setAllQueryableElements(queryableElements)
-    mockDocument.setActiveQueryableElements([
-      queryableElements.otherElement,
-      queryableElements.testElement
-    ])
-    expect(
-      mockDocument.querySelectorAll('test-element')
+      mockDocument.elements.otherElementAll
     ).to.deep.equal(
-      queryableElements.testElement.elements
+      queryableElements.otherElement.elements
     )
   })
-  it('querySelector does not match non-active elements', function () {
-    mockDocument.setAllQueryableElements(queryableElements)
-    mockDocument.setActiveQueryableElements([])
-    expect(
-      mockDocument.querySelector('test-element')
-    ).to.equal(
-      null
-    )
+  describe('querySelector', function () {
+    it('return first element matching selector', function () {
+      mockDocument.setAllQueryableElements(queryableElements)
+      mockDocument.setActiveQueryableElements([
+        queryableElements.testElement
+      ])
+      expect(
+        mockDocument.querySelector('test-element')
+      ).to.equal(
+        queryableElements.testElement.elements[0]
+      )
+    })
+    it('return correct element regardless of activation order', function () {
+      mockDocument.setAllQueryableElements(queryableElements)
+      mockDocument.setActiveQueryableElements([
+        queryableElements.otherElement,
+        queryableElements.testElement
+      ])
+      expect(
+        mockDocument.querySelector('test-element')
+      ).to.equal(
+        queryableElements.testElement.elements[0]
+      )
+    })
+    it('return null if no match', function () {
+      mockDocument.setAllQueryableElements([])
+      mockDocument.setActiveQueryableElements([])
+      expect(
+        mockDocument.querySelector('does-not-exist')
+      ).to.equal(
+        null
+      )
+    })
+    it('can match same element on diffent selectors', function () {
+      mockDocument.setAllQueryableElements(queryableElements)
+      mockDocument.setActiveQueryableElements([
+        queryableElements.testElement
+      ])
+      expect(
+        mockDocument.querySelector('test-element')
+      ).to.equal(
+        queryableElements.testElement.elements[0]
+      )
+      expect(
+        mockDocument.querySelector('test-element-alt')
+      ).to.equal(
+        queryableElements.testElement.elements[0]
+      )
+    })
+    it('do not match non-active elements', function () {
+      mockDocument.setAllQueryableElements(queryableElements)
+      mockDocument.setActiveQueryableElements([])
+      expect(
+        mockDocument.querySelector('test-element')
+      ).to.equal(
+        null
+      )
+    })
   })
-  it('querySelectorAll does not match non-active elements', function () {
-    mockDocument.setAllQueryableElements(queryableElements)
-    mockDocument.setActiveQueryableElements([])
-    expect(
-      mockDocument.querySelectorAll('test-element')
-    ).to.deep.equal(
-      []
-    )
+  describe('querySelectorAll', function () {
+    it('return all elements matching selector', function () {
+      mockDocument.setAllQueryableElements(queryableElements)
+      mockDocument.setActiveQueryableElements([
+        queryableElements.testElement
+      ])
+      expect(
+        mockDocument.querySelectorAll('test-element')
+      ).to.deep.equal(
+        queryableElements.testElement.elements
+      )
+    })
+    it('return correct elements regardless of activation order', function () {
+      mockDocument.setAllQueryableElements(queryableElements)
+      mockDocument.setActiveQueryableElements([
+        queryableElements.otherElement,
+        queryableElements.testElement
+      ])
+      expect(
+        mockDocument.querySelectorAll('test-element')
+      ).to.deep.equal(
+        queryableElements.testElement.elements
+      )
+    })
+    it('return empty array if no match', function () {
+      mockDocument.setAllQueryableElements([])
+      mockDocument.setActiveQueryableElements([])
+      expect(
+        mockDocument.querySelectorAll('does-not-exist')
+      ).to.deep.equal(
+        []
+      )
+    })
+    it('can match same set of elements on different selectors', function () {
+      mockDocument.setAllQueryableElements(queryableElements)
+      mockDocument.setActiveQueryableElements([
+        queryableElements.testElement
+      ])
+      expect(
+        mockDocument.querySelectorAll('test-element')
+      ).to.deep.equal(
+        queryableElements.testElement.elements
+      )
+      expect(
+        mockDocument.querySelectorAll('test-element-alt')
+      ).to.deep.equal(
+        queryableElements.testElement.elements
+      )
+    })
+    it('do not match non-active elements', function () {
+      mockDocument.setAllQueryableElements(queryableElements)
+      mockDocument.setActiveQueryableElements([])
+      expect(
+        mockDocument.querySelectorAll('test-element')
+      ).to.deep.equal(
+        []
+      )
+    })
   })
 })

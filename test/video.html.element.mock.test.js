@@ -3,16 +3,24 @@ let expect = require('chai').expect
 
 let makeMockVideoElement = require('./../src/video.html.element.mock')
 
-describe('mockVideoElement', function () {
-  it('has a `paused` property', function () {
+describe('video.html.element.mock', function () {
+  it('has property `paused`', function () {
     let mockVideoElement = makeMockVideoElement()
     expect(mockVideoElement).to.have.property('paused')
   })
-  it('has a `currentTime` property', function () {
+  it('has property `currentTime`', function () {
     let mockVideoElement = makeMockVideoElement()
     expect(mockVideoElement).to.have.property('currentTime')
   })
-  it('can simulate play', function () {
+  it('has method `play`', function () {
+    let mockVideoElement = makeMockVideoElement()
+    expect(mockVideoElement).to.respondTo('play')
+  })
+  it('has method `pause`', function () {
+    let mockVideoElement = makeMockVideoElement()
+    expect(mockVideoElement).to.respondTo('pause')
+  })
+  it('simulate play', function () {
     let mockVideoElement = makeMockVideoElement()
     mockVideoElement.pause()
     mockVideoElement.play()
@@ -20,7 +28,7 @@ describe('mockVideoElement', function () {
       mockVideoElement.paused
     ).to.be.false
   })
-  it('can simulate pause', function () {
+  it('simulate pause', function () {
     let mockVideoElement = makeMockVideoElement()
     mockVideoElement.play()
     mockVideoElement.pause()

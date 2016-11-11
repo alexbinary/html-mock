@@ -3,25 +3,44 @@ let expect = require('chai').expect
 
 let makeMockElement = require('./../src/html.element.mock')
 
-describe('mockElement', function () {
-  it('has a `value` property', function () {
+describe('html.element.mock', function () {
+  it('has property `value`', function () {
     let mockElement = makeMockElement()
     expect(mockElement).to.have.property('value')
   })
-  it('has a `innerHTML` property', function () {
+  it('has property `innerHTML`', function () {
     let mockElement = makeMockElement()
     expect(mockElement).to.have.property('innerHTML')
   })
-  it('is clickable', function () {
+  it('has property `_clickCount`', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement).to.have.property('_clickCount')
+  })
+  it('property `_clickCount` is 0 by default', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement._clickCount).to.equal(0)
+  })
+  it('has method `click`', function () {
     let mockElement = makeMockElement()
     expect(mockElement).to.respondTo('click')
   })
-  it('can add event listeners', function () {
+  it('method `click` increments property `_clickCount`', function () {
+    let mockElement = makeMockElement()
+    let clickCountBefore = mockElement._clickCount
+    mockElement.click()
+    let clickCountAfter = mockElement._clickCount
+    expect(
+      clickCountAfter
+    ).to.equal(
+      clickCountBefore + 1
+    )
+  })
+  it('add event listeners', function () {
     let mockElement = makeMockElement()
     mockElement.addEventListener('myevent', function () {})
     mockElement.addEventListener('myevent', function () {})
   })
-  it('can test if a value is attached to a specific event', function () {
+  it('test registered listener', function () {
     let mockElement = makeMockElement()
     let cb1 = function () {}
     let cb2 = function () {}
@@ -36,7 +55,7 @@ describe('mockElement', function () {
       mockElement.isEventListener('myotherevent', cb1)
     ).to.be.false
   })
-  it('can dispatch event', function (done) {
+  it('dispatch event', function (done) {
     let mockElement = makeMockElement()
     let i = 0
     let cb = function () {
