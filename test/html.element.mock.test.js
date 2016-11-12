@@ -47,6 +47,11 @@ describe('html.element.mock', function () {
       clickCountBefore + 1
     )
   })
+  it('method `click` dispatches event `click`', function (done) {
+    let mockElement = makeMockElement()
+    mockElement.addEventListener('click', done)
+    mockElement.click()
+  })
   it('add event listeners', function () {
     let mockElement = makeMockElement()
     mockElement.addEventListener('myevent', function () {})

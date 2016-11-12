@@ -18,6 +18,7 @@ function makeMockHtmlElement () {
     },
     click: function () {
       this._clickCount += 1
+      this.dispatchEvent('click')
     },
     innerHTML: '',
     value: '',
