@@ -24,6 +24,10 @@ describe('html.element.mock', function () {
     let mockElement = makeMockElement()
     expect(mockElement).to.have.property('_clickCount')
   })
+  it('property `_clickCount` is number', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement._clickCount).to.be.a('number')
+  })
   it('property `_clickCount` is 0 by default', function () {
     let mockElement = makeMockElement()
     expect(mockElement._clickCount).to.equal(0)
