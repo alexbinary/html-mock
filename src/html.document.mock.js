@@ -23,12 +23,13 @@ function makeMockDocument () {
       return null
     },
     querySelectorAll: function (selector) {
+      let matchElements = []
       for (let i in activeQueryableElements) {
         if (activeQueryableElements[i].selectors.indexOf(selector) !== -1) {
-          return activeQueryableElements[i].elements
+          matchElements.push(...activeQueryableElements[i].elements)
         }
       }
-      return []
+      return matchElements
     }
   }
   return instance

@@ -24,6 +24,14 @@ let queryableElements = {
     elements: [
       makeMockHtmlElement()
     ]
+  },
+  otherElement2: {
+    selectors: [
+      'other-element'
+    ],
+    elements: [
+      makeMockHtmlElement()
+    ]
   }
 }
 
@@ -142,12 +150,14 @@ describe('html.document.mock', function () {
     it('return all elements matching selector', function () {
       mockDocument.setAllQueryableElements(queryableElements)
       mockDocument.setActiveQueryableElements([
-        queryableElements.testElement
+        queryableElements.otherElement,
+        queryableElements.otherElement2
       ])
       expect(
-        mockDocument.querySelectorAll('test-element')
+        mockDocument.querySelectorAll('other-element')
       ).to.deep.equal(
-        queryableElements.testElement.elements
+        [...queryableElements.otherElement.elements,
+        ...queryableElements.otherElement2.elements]
       )
     })
     it('return correct elements regardless of activation order', function () {
