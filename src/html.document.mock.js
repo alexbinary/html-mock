@@ -1,7 +1,7 @@
 
 function makeMockDocument () {
   let queryableElements = {}
-  let activeQueryableElements = {}
+  let activeQueryableElements = []
   let instance = {
     setAllQueryableElements: function (newQueryableElements) {
       queryableElements = newQueryableElements
