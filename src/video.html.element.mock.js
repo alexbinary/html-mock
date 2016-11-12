@@ -2,8 +2,8 @@
 let makeMockHtmlElement = require('./html.element.mock')
 
 function makeMockVideoElement () {
-  let element = makeMockHtmlElement()
-  Object.assign(element, {
+  let instance = makeMockHtmlElement()
+  Object.assign(instance, {
     paused: false,
     currentTime: 0,
     play: function () {
@@ -13,7 +13,7 @@ function makeMockVideoElement () {
       this.paused = true
     }
   })
-  return element
+  return instance
 }
 
 module.exports = makeMockVideoElement
