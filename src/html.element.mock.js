@@ -21,6 +21,7 @@ function makeMockHtmlElement () {
     },
     innerHTML: '',
     value: '',
+    disabled: false,
     _clickCount: 0
   }
   return instance

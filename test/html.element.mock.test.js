@@ -4,6 +4,14 @@ let expect = require('chai').expect
 let makeMockElement = require('./../src/html.element.mock')
 
 describe('html.element.mock', function () {
+  it('has property `disabled`', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement).to.have.property('disabled')
+  })
+  it('property `disabled` is boolean', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement.disabled).to.be.a('boolean')
+  })
   it('has property `value`', function () {
     let mockElement = makeMockElement()
     expect(mockElement).to.have.property('value')
