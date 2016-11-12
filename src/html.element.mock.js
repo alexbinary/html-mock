@@ -2,6 +2,10 @@
 function makeMockHtmlElement () {
   let eventListeners = {}
   let instance = {
+    value: '',
+    disabled: false,
+    innerHTML: '',
+    _clickCount: 0,
     addEventListener: function (eventName, value) {
       if (!eventListeners[eventName]) {
         eventListeners[eventName] = []
@@ -19,11 +23,7 @@ function makeMockHtmlElement () {
     click: function () {
       this._clickCount += 1
       this.dispatchEvent('click')
-    },
-    innerHTML: '',
-    value: '',
-    disabled: false,
-    _clickCount: 0
+    }
   }
   return instance
 }
