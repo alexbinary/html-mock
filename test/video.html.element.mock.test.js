@@ -8,9 +8,25 @@ describe('video.html.element.mock', function () {
     let mockVideoElement = makeMockVideoElement()
     expect(mockVideoElement).to.have.property('paused')
   })
+  it('property `paused` is boolean', function () {
+    let mockVideoElement = makeMockVideoElement()
+    expect(mockVideoElement.paused).to.be.a('boolean')
+  })
+  it('property `paused` is false by default', function () {
+    let mockVideoElement = makeMockVideoElement()
+    expect(mockVideoElement.paused).to.equal(false)
+  })
   it('has property `currentTime`', function () {
     let mockVideoElement = makeMockVideoElement()
     expect(mockVideoElement).to.have.property('currentTime')
+  })
+  it('property `currentTime` is number', function () {
+    let mockVideoElement = makeMockVideoElement()
+    expect(mockVideoElement.currentTime).to.be.a('number')
+  })
+  it('property `currentTime` is 0 by default', function () {
+    let mockVideoElement = makeMockVideoElement()
+    expect(mockVideoElement.currentTime).to.equal(0)
   })
   it('has method `play`', function () {
     let mockVideoElement = makeMockVideoElement()
