@@ -4,8 +4,6 @@ let expect = require('chai').expect
 let makeMockDocument = require('./../src/html.document.mock')
 let makeMockHtmlElement = require('./../src/html.element.mock')
 
-let mockDocument = makeMockDocument()
-
 let queryableElements = {
   testElement: {
     selectors: [
@@ -37,15 +35,18 @@ let queryableElements = {
 
 describe('html.document.mock', function () {
   it('take list of queryable elements', function () {
+    let mockDocument = makeMockDocument()
     mockDocument.setAllQueryableElements(queryableElements)
   })
   it('take list of active queryable elements', function () {
+    let mockDocument = makeMockDocument()
     mockDocument.setAllQueryableElements(queryableElements)
     mockDocument.setActiveQueryableElements([
       queryableElements.testElement
     ])
   })
   it('access element directly by name', function () {
+    let mockDocument = makeMockDocument()
     mockDocument.setAllQueryableElements(queryableElements)
     expect(
       mockDocument.elements.testElement
@@ -54,6 +55,7 @@ describe('html.document.mock', function () {
     )
   })
   it('access multiple elements directly by name with suffix `All`', function () {
+    let mockDocument = makeMockDocument()
     mockDocument.setAllQueryableElements(queryableElements)
     expect(
       mockDocument.elements.testElementAll
@@ -62,6 +64,7 @@ describe('html.document.mock', function () {
     )
   })
   it('access all elements directly by name whether set as active or not', function () {
+    let mockDocument = makeMockDocument()
     mockDocument.setAllQueryableElements(queryableElements)
     mockDocument.setActiveQueryableElements([
       queryableElements.testElement
@@ -89,6 +92,7 @@ describe('html.document.mock', function () {
   })
   describe('querySelector', function () {
     it('return first element matching selector', function () {
+      let mockDocument = makeMockDocument()
       mockDocument.setAllQueryableElements(queryableElements)
       mockDocument.setActiveQueryableElements([
         queryableElements.testElement
@@ -100,6 +104,7 @@ describe('html.document.mock', function () {
       )
     })
     it('return correct element regardless of activation order', function () {
+      let mockDocument = makeMockDocument()
       mockDocument.setAllQueryableElements(queryableElements)
       mockDocument.setActiveQueryableElements([
         queryableElements.otherElement,
@@ -112,6 +117,7 @@ describe('html.document.mock', function () {
       )
     })
     it('return null if no match', function () {
+      let mockDocument = makeMockDocument()
       mockDocument.setAllQueryableElements([])
       mockDocument.setActiveQueryableElements([])
       expect(
@@ -121,6 +127,7 @@ describe('html.document.mock', function () {
       )
     })
     it('can match same element on diffent selectors', function () {
+      let mockDocument = makeMockDocument()
       mockDocument.setAllQueryableElements(queryableElements)
       mockDocument.setActiveQueryableElements([
         queryableElements.testElement
@@ -137,6 +144,7 @@ describe('html.document.mock', function () {
       )
     })
     it('do not match non-active elements', function () {
+      let mockDocument = makeMockDocument()
       mockDocument.setAllQueryableElements(queryableElements)
       mockDocument.setActiveQueryableElements([])
       expect(
@@ -148,6 +156,7 @@ describe('html.document.mock', function () {
   })
   describe('querySelectorAll', function () {
     it('return all elements matching selector', function () {
+      let mockDocument = makeMockDocument()
       mockDocument.setAllQueryableElements(queryableElements)
       mockDocument.setActiveQueryableElements([
         queryableElements.otherElement,
@@ -161,6 +170,7 @@ describe('html.document.mock', function () {
       )
     })
     it('return correct elements regardless of activation order', function () {
+      let mockDocument = makeMockDocument()
       mockDocument.setAllQueryableElements(queryableElements)
       mockDocument.setActiveQueryableElements([
         queryableElements.otherElement,
@@ -173,6 +183,7 @@ describe('html.document.mock', function () {
       )
     })
     it('return empty array if no match', function () {
+      let mockDocument = makeMockDocument()
       mockDocument.setAllQueryableElements([])
       mockDocument.setActiveQueryableElements([])
       expect(
@@ -182,6 +193,7 @@ describe('html.document.mock', function () {
       )
     })
     it('can match same set of elements on different selectors', function () {
+      let mockDocument = makeMockDocument()
       mockDocument.setAllQueryableElements(queryableElements)
       mockDocument.setActiveQueryableElements([
         queryableElements.testElement
@@ -198,6 +210,7 @@ describe('html.document.mock', function () {
       )
     })
     it('do not match non-active elements', function () {
+      let mockDocument = makeMockDocument()
       mockDocument.setAllQueryableElements(queryableElements)
       mockDocument.setActiveQueryableElements([])
       expect(
