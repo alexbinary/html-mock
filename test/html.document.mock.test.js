@@ -10,26 +10,19 @@ let queryableElements = {
       'test-element',
       'test-element-alt'
     ],
-    elements: [
-      makeMockHtmlElement(),
-      makeMockHtmlElement()
-    ]
+    element: makeMockHtmlElement()
   },
   otherElement: {
     selectors: [
       'other-element'
     ],
-    elements: [
-      makeMockHtmlElement()
-    ]
+    element: makeMockHtmlElement()
   },
   otherElement2: {
     selectors: [
       'other-element'
     ],
-    elements: [
-      makeMockHtmlElement()
-    ]
+    element: makeMockHtmlElement()
   }
 }
 
@@ -51,16 +44,7 @@ describe('html.document.mock', function () {
     expect(
       mockDocument.elements.testElement
     ).to.equal(
-      queryableElements.testElement.elements[0]
-    )
-  })
-  it('access multiple elements directly by name with suffix `All`', function () {
-    let mockDocument = makeMockDocument()
-    mockDocument.setAllQueryableElements(queryableElements)
-    expect(
-      mockDocument.elements.testElementAll
-    ).to.deep.equal(
-      queryableElements.testElement.elements
+      queryableElements.testElement.element
     )
   })
   it('access all elements directly by name whether set as active or not', function () {
@@ -72,22 +56,12 @@ describe('html.document.mock', function () {
     expect(
       mockDocument.elements.testElement
     ).to.deep.equal(
-      queryableElements.testElement.elements[0]
-    )
-    expect(
-      mockDocument.elements.testElementAll
-    ).to.deep.equal(
-      queryableElements.testElement.elements
+      queryableElements.testElement.element
     )
     expect(
       mockDocument.elements.otherElement
     ).to.deep.equal(
-      queryableElements.otherElement.elements[0]
-    )
-    expect(
-      mockDocument.elements.otherElementAll
-    ).to.deep.equal(
-      queryableElements.otherElement.elements
+      queryableElements.otherElement.element
     )
   })
   describe('querySelector', function () {
@@ -100,7 +74,7 @@ describe('html.document.mock', function () {
       expect(
         mockDocument.querySelector('test-element')
       ).to.equal(
-        queryableElements.testElement.elements[0]
+        queryableElements.testElement.element
       )
     })
     it('return correct element regardless of activation order', function () {
@@ -113,7 +87,7 @@ describe('html.document.mock', function () {
       expect(
         mockDocument.querySelector('test-element')
       ).to.equal(
-        queryableElements.testElement.elements[0]
+        queryableElements.testElement.element
       )
     })
     it('return null if no match', function () {
@@ -135,12 +109,12 @@ describe('html.document.mock', function () {
       expect(
         mockDocument.querySelector('test-element')
       ).to.equal(
-        queryableElements.testElement.elements[0]
+        queryableElements.testElement.element
       )
       expect(
         mockDocument.querySelector('test-element-alt')
       ).to.equal(
-        queryableElements.testElement.elements[0]
+        queryableElements.testElement.element
       )
     })
     it('do not match non-active elements', function () {
@@ -164,10 +138,10 @@ describe('html.document.mock', function () {
       ])
       expect(
         mockDocument.querySelectorAll('other-element')
-      ).to.deep.equal(
-        [...queryableElements.otherElement.elements,
-        ...queryableElements.otherElement2.elements]
-      )
+      ).to.deep.equal([
+        queryableElements.otherElement.element,
+        queryableElements.otherElement2.element
+      ])
     })
     it('return correct elements regardless of activation order', function () {
       let mockDocument = makeMockDocument()
@@ -178,9 +152,9 @@ describe('html.document.mock', function () {
       ])
       expect(
         mockDocument.querySelectorAll('test-element')
-      ).to.deep.equal(
-        queryableElements.testElement.elements
-      )
+      ).to.deep.equal([
+        queryableElements.testElement.element
+      ])
     })
     it('return empty array if no match', function () {
       let mockDocument = makeMockDocument()
@@ -200,14 +174,14 @@ describe('html.document.mock', function () {
       ])
       expect(
         mockDocument.querySelectorAll('test-element')
-      ).to.deep.equal(
-        queryableElements.testElement.elements
-      )
+      ).to.deep.equal([
+        queryableElements.testElement.element
+      ])
       expect(
         mockDocument.querySelectorAll('test-element-alt')
-      ).to.deep.equal(
-        queryableElements.testElement.elements
-      )
+      ).to.deep.equal([
+        queryableElements.testElement.element
+      ])
     })
     it('do not match non-active elements', function () {
       let mockDocument = makeMockDocument()
