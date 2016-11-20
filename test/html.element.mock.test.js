@@ -40,6 +40,18 @@ describe('html.element.mock', function () {
     let mockElement = makeMockElement()
     expect(mockElement.innerHTML).to.equal('')
   })
+  it('has property `textContent`', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement).to.have.property('textContent')
+  })
+  it('property `textContent` is a string', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement.textContent).to.be.a('string')
+  })
+  it('property `textContent` is empty string by default', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement.textContent).to.equal('')
+  })
   it('has property `_clickCount`', function () {
     let mockElement = makeMockElement()
     expect(mockElement).to.have.property('_clickCount')

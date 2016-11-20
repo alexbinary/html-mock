@@ -5,6 +5,7 @@ function makeMockHtmlElement () {
     value: '',
     disabled: false,
     innerHTML: '',
+    textContent: '',
     _clickCount: 0,
     addEventListener: function (eventName, value) {
       if (!eventListeners[eventName]) {
