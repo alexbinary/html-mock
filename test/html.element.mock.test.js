@@ -12,13 +12,33 @@ describe('html.element.mock', function () {
     let mockElement = makeMockElement()
     expect(mockElement.disabled).to.be.a('boolean')
   })
+  it('property `disabled` is false by default', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement.disabled).to.equal(false)
+  })
   it('has property `value`', function () {
     let mockElement = makeMockElement()
     expect(mockElement).to.have.property('value')
   })
+  it('property `value` is a string', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement.value).to.be.a('string')
+  })
+  it('property `value` is empty string by default', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement.value).to.equal('')
+  })
   it('has property `innerHTML`', function () {
     let mockElement = makeMockElement()
     expect(mockElement).to.have.property('innerHTML')
+  })
+  it('property `innerHTML` is a string', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement.innerHTML).to.be.a('string')
+  })
+  it('property `innerHTML` is empty string by default', function () {
+    let mockElement = makeMockElement()
+    expect(mockElement.innerHTML).to.equal('')
   })
   it('has property `_clickCount`', function () {
     let mockElement = makeMockElement()
@@ -52,9 +72,17 @@ describe('html.element.mock', function () {
     mockElement.addEventListener('click', done)
     mockElement.click()
   })
+  it('property `_clickCount` is updated before `click` event is dispatched', function (done) {
+    let mockElement = makeMockElement()
+    mockElement._clickCount = 0
+    mockElement.addEventListener('click', function () {
+      expect(mockElement._clickCount).to.equal(1)
+      done()
+    })
+    mockElement.click()
+  })
   it('add event listeners', function () {
     let mockElement = makeMockElement()
-    mockElement.addEventListener('myevent', function () {})
     mockElement.addEventListener('myevent', function () {})
   })
   it('test registered listener', function () {
@@ -73,6 +101,11 @@ describe('html.element.mock', function () {
     ).to.be.false
   })
   it('dispatch event', function (done) {
+    let mockElement = makeMockElement()
+    mockElement.addEventListener('myevent', done)
+    mockElement.dispatchEvent('myevent')
+  })
+  it('add same callback to same event multiple time', function (done) {
     let mockElement = makeMockElement()
     let i = 0
     let cb = function () {
